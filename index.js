@@ -79,7 +79,7 @@ const typeDefs = gql`
         companyId: Int!,
         companyAddress: String,
         companyProducts: [String!]!,
-        category: Company
+        category: Category
     },
     type Category {
         id: Int!,
@@ -101,8 +101,7 @@ const resolvers = {
         },
         singleCompany: (parent, args, context) => {
             const company = Company.find(company => company.companyId === args.id)
-            return company
-            // This will return company having the matching id of the product
+            return company // This will return company having the matching id of the product
         },
         catagories: () => {
             return Categories // This will return the Categories Object
@@ -117,10 +116,12 @@ const resolvers = {
     },
     Category: {
         products: (parent, args, context) => {
-            // console.log(parent)
+            // console.log(parent); // will return the Categories object
             const product = Company.filter((product) => {
-                // console.log(product);
+                // console.log(product); // will return the Company object
                 // console.log(product.categoryId);
+
+                // the below line will return  product which has the matching categoryId(Company object) and id of parent(Categories Object) 
                 return product.categoryId === parent.id;
             })
             return product;
